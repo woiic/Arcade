@@ -2,8 +2,6 @@ extends Node2D
 
 @onready var button = $Button
 
-var selectorScene = preload("res://scenes/game_selector_scene.tscn")
-
 var simultaneous_scene
 var folder_dir : String 
 var game_dir = "res://main.tscn"
