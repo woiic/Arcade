@@ -48,5 +48,5 @@ func get_mods(path):
 func StartGame(inGame):
 	game_selected.emit()
 	get_parent().add_child(inGame)
-	hide()
+	#hide()
 	

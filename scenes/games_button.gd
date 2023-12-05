@@ -22,10 +22,10 @@ func _process(delta):
 	pass
 
 func loadMods():
-	var dir = DirAccess.open("res://")
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
+	#var dir = DirAccess.open("res://")
+	#if dir:
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
 		#while file_name != "":
 			#if dir.current_is_dir():
 				#print("Found directory: " + file_name)

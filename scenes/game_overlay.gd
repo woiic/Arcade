@@ -12,7 +12,8 @@ func _ready():
 func _process(delta):
 	pass
 
-func showScore(in_points: float, delay : float=2):
+func showScore(in_points: float, max_points: float, delay : float=2):
+	show()
 	score_text.hide()
 	score_number.hide()
 	#await(get_tree().create_timer(delay), "timeout")
@@ -23,6 +24,7 @@ func showScore(in_points: float, delay : float=2):
 	return
 
 func hideScore():
-	score_text.hide()
-	score_number.hide()
+	#score_text.hide()
+	#score_number.hide()
+	hide()
 	return
