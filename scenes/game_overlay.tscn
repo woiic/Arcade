@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://b5f2nbt70fkr1"]
+[gd_scene load_steps=2 format=3 uid="uid://b5f2nbt70fkr1"]
+
+[ext_resource type="Script" path="res://scenes/game_overlay.gd" id="1_2fwss"]
 
 [node name="GameOverlay" type="Control"]
 layout_mode = 3
@@ -7,3 +9,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_2fwss")
+
+[node name="ScoreText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 408.0
+offset_right = 357.0
+offset_bottom = 434.0
+text = "Score = "
+metadata/_edit_group_ = true
+
+[node name="ScoreNumber" type="Label" parent="ScoreText"]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 133.0
+offset_bottom = 26.0

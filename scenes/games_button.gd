@@ -2,8 +2,6 @@ extends Node2D
 
 @onready var button = $Button
 
-var selectorScene = preload("res://scenes/game_selector_scene.tscn")
-
 var simultaneous_scene
 var folder_dir : String 
 var game_dir = "res://main.tscn"
@@ -24,10 +22,10 @@ func _process(delta):
 	pass
 
 func loadMods():
-	var dir = DirAccess.open("res://")
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
+	#var dir = DirAccess.open("res://")
+	#if dir:
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
 		#while file_name != "":
 			#if dir.current_is_dir():
 				#print("Found directory: " + file_name)
