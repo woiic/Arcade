@@ -30,21 +30,28 @@ class PlayerData :
 
 
 
-# :------------------------------ Methods to interact with MainScene -----------------------------: #
+# :------------------------------ v0.1 Methods to interact with MainScene -----------------------------: #
 
 func get_PlayerData():
 	#var PD : static.PlayerData
+	print(2)
 	var player_data : PlayerData
 	#MainScene = get_parent().get_child(2) # 2 siempre es el MainScene
 	player_data = MainScene.give_PlayerData()
+	print("---")
+	print(MainScene)
+	print(player_data)
+	print("---")
 	return player_data
 
-func  get_LeaderBoard():
-	var LeaderBoard : String = ""
+func get_LeaderBoard():
+	var LeaderBoard : String
+	LeaderBoard = "sebicho 100 \n vicente 200"
 	return LeaderBoard
 
 func game_over(in_points :float):
 	var max_points = {points=0, is_best=false} # int, bool
-	
+	#if MainScene:
+		#MainScene.give_PlayerData()
 	return max_points
 

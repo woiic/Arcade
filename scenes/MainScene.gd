@@ -14,12 +14,14 @@ var ActualState;
 @onready var game_list_scene = $GameListScene
 @onready var pause_container = $pause_container
 @onready var game_overlay = $GameOverlay
+@onready var session_handler = $SessionHandler
 
 var bon_pause = false
 var this_game_score : float = 0
 var max_game_score : float = 0
 var this_user = "hola2"
 var this_PlayerData # Actual player data
+var test_playerdata
 
 #var simultaneous_scene = preload("res://scenes/game_selector_scene.tscn").instantiate()
 
@@ -29,8 +31,10 @@ func _ready():
 	game_list_scene.hide()
 	pause_container.hide()
 	game_overlay.hide()
+	session_handler.hide()
 	title.show()
-	
+	# PlayerData(inId: int, inName: String, inImage: String, inFaculty: String):
+	this_PlayerData = Global.PlayerData.new(0, "loiic", "link/to/image", "FCFM")
 	get_parent().get_child(0).MainScene = self
 	
 
@@ -49,6 +53,7 @@ func _process(delta):
 				if main_game:
 					main_game.queue_free()
 					game_list_scene.show()
+					ActualState = State.Start
 					hideScore()
 	return
 
@@ -79,6 +84,15 @@ func _on_game_list_scene_game_selected():
 	max_game_score = search_user_score(content, this_user)
 	
 	game_list_scene.hide()
+
+
+# :------------------------------ Methods work with the user info session_handler -----------------------------: #
+
+
+func _on_session_handler_endpoint_response(response):
+	test_playerdata = response # este response necesitará trabajo lo más probable
+	return
+
 
 # :------------------------------ Methods to interact with Mediador -----------------------------: #
 
@@ -159,4 +173,5 @@ func load():
 	var file = FileAccess.open("res://LeaderBoards/test.txt", FileAccess.READ)
 	var content = file.get_as_text()
 	return content
+
 
