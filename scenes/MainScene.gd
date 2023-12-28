@@ -2,12 +2,13 @@ extends CanvasLayer
 
 enum State {
 Idle = 0,
-ChossingGame,
 WaitingSession,
+ChossingGame,
 InGame,
 }
 
 var ActualState;
+var PreviousState;
 @onready var title = $Title
 @onready var titleButton = $Title/Button
 #@onready var game_selector_scene = $GameSelectorScene
@@ -21,6 +22,7 @@ var bon_pause = false
 var this_game_score : float = 0
 var max_game_score : float = 0
 var this_user = "hola2"
+var P1_PlayerData 
 var this_PlayerData # Actual player data
 var test_playerdata
 
@@ -29,9 +31,11 @@ var test_playerdata
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ActualState = State.Idle
+	PreviousState = State.Idle
 	game_list_scene.hide()
 	pause_container.hide()
 	game_overlay.hide()
+	session_handler.parent = self
 	session_handler.hide()
 	title.show()
 	# PlayerData(inId: int, inName: String, inImage: String, inFaculty: String):
@@ -43,12 +47,28 @@ func _ready():
 func _process(delta):
 	match ActualState:
 		State.Idle:
+			# First change state actions
+			if PreviousState != ActualState:
+				PreviousState = ActualState
 			debug.text = "Starting State"
 			return
-		State.ChossingGame:
+		State.WaitingSession:
+			# First change state actions
+			if PreviousState != ActualState:
+				title.hide()
+				game_list_scene.hide()
+				session_handler.show()
+				PreviousState = ActualState
 			debug.text = "Chossing game State"
 			return
-		#State.AwatingCard:
+		State.ChossingGame:
+			if PreviousState != ActualState:
+				title.hide()
+				game_list_scene.show()
+				session_handler.hide()
+				PreviousState = ActualState
+			debug.text = "Chossing game State"
+			return
 		State.InGame:
 			debug.text = "In game State"
 			if Input.is_action_just_pressed("escape"):
@@ -61,11 +81,39 @@ func _process(delta):
 	return
 
 
-func _on_button_pressed():
+# :------------------------------ Methods work with the user info session_handler -----------------------------: #
+
+## TODO
+func _on_session_handler_endpoint_response(response):
+	test_playerdata = response # este response necesitará trabajo lo más probable
+	return
+
+## Sessions functions Functional
+
+func _on_sessions_button_pressed() -> void:
+	ActualState = State.WaitingSession
+	pass # Replace with function body.
+
+
+func _on_guest_session(guest_data: Variant) -> void:
+	P1_PlayerData = guest_data
 	ActualState = State.ChossingGame
+	return
+
+
+func _on_player_session(player_data: Variant) -> void:
+	P1_PlayerData = player_data
+	ActualState = State.ChossingGame
+	pass # Replace with function body.
+
+
+## Game Choosing functions
+
+func _btn_going_to_games() -> void:
+	ActualState = State.ChossingGame
+	#ActualState = State.WaitingSession
 	game_list_scene.show()
 	title.hide()
-	# Getting top score
 	return
 
 func _on_pause_container_return_mm():
@@ -88,15 +136,6 @@ func _on_game_list_scene_game_selected():
 	max_game_score = search_user_score(content, this_user)
 	
 	game_list_scene.hide()
-
-
-# :------------------------------ Methods work with the user info session_handler -----------------------------: #
-
-
-func _on_session_handler_endpoint_response(response):
-	test_playerdata = response # este response necesitará trabajo lo más probable
-	return
-
 
 # :------------------------------ Methods to interact with Mediador -----------------------------: #
 
@@ -138,9 +177,6 @@ func saveScore(in_points: float):
 	file2.store_string(new_scores)
 	file2.close()
 	return
-var a = """hola 123
-hola1 4324
-hola2 5"""
 
 func search_user_score(search_string : String, user_name : String):
 	var linelist = search_string.split("\n")
@@ -179,3 +215,8 @@ func load():
 	return content
 
 
+# :------------------------------ DEBUG -----------------------------: #
+
+
+func _on_debug_button_pressed() -> void:
+	Global.get_PlayerData()

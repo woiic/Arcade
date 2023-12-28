@@ -9,7 +9,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-var a = """
+	
 class PlayerData :
 	var id : int
 	var name : String
@@ -22,4 +22,3 @@ class PlayerData :
 		image = inImage
 		faculty = inFaculty
 		return
-"""

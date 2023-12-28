@@ -11,7 +11,46 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pw5j6")
 
-[node name="Label" type="Label" parent="."]
+[node name="MainLabel" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 344.0
+offset_top = 128.0
+offset_right = 616.0
+offset_bottom = 151.0
+text = "Pasar tarjeta por el lector porfavor."
+
+[node name="GuestButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 256.0
+offset_right = 491.0
+offset_bottom = 288.0
+text = "Entrar como invitado"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 304.0
+offset_right = 512.0
+offset_bottom = 335.0
+placeholder_text = "Name"
+
+[node name="EnterGuestButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 528.0
+offset_top = 304.0
+offset_right = 592.0
+offset_bottom = 336.0
+text = "Enter"
+
+[node name="SimularTarjeta" type="Button" parent="."]
+layout_mode = 0
+offset_left = 752.0
+offset_top = 144.0
+offset_right = 880.0
+offset_bottom = 232.0
+
+[connection signal="pressed" from="GuestButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="GuestButton" to="." method="_on_guest_entering"]
+[connection signal="pressed" from="EnterGuestButton" to="." method="_on_enter_guest"]
+[connection signal="pressed" from="SimularTarjeta" to="." method="_on_simular_tarjeta"]

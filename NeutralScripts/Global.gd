@@ -20,12 +20,14 @@ class PlayerData :
 	var name : String
 	var image : String
 	var faculty : String
+	var guest : bool
 	
-	func _init(inId: int, inName: String, inImage: String, inFaculty: String):
+	func _init(inId: int, inName: String, inImage: String, inFaculty: String, bIsGuest = false):
 		id = inId
 		name = inName
 		image = inImage
 		faculty = inFaculty
+		guest = bIsGuest
 		return
 
 
@@ -34,7 +36,6 @@ class PlayerData :
 
 func get_PlayerData():
 	#var PD : static.PlayerData
-	print(2)
 	var player_data : PlayerData
 	#MainScene = get_parent().get_child(2) # 2 siempre es el MainScene
 	player_data = MainScene.give_PlayerData()
