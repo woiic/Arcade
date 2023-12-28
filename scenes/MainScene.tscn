@@ -9,8 +9,6 @@
 [node name="MainScene" type="CanvasLayer"]
 script = ExtResource("1_67b63")
 
-[node name="GameListScene" parent="." instance=ExtResource("2_eqp0s")]
-
 [node name="Title" type="Label" parent="."]
 offset_left = 432.0
 offset_top = 184.0
@@ -30,6 +28,8 @@ theme_override_font_sizes/font_size = 42
 text = "Continue"
 icon_alignment = 1
 
+[node name="GameListScene" parent="." instance=ExtResource("2_eqp0s")]
+
 [node name="pause_container" parent="." instance=ExtResource("3_a3q5w")]
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -38,7 +38,13 @@ size_flags_vertical = 4
 
 [node name="SessionHandler" parent="." instance=ExtResource("5_rm566")]
 
-[connection signal="game_selected" from="GameListScene" to="." method="_on_game_list_scene_game_selected"]
+[node name="Debug" type="Label" parent="."]
+offset_left = 832.0
+offset_top = 544.0
+offset_right = 872.0
+offset_bottom = 567.0
+
 [connection signal="pressed" from="Title/Button" to="." method="_on_button_pressed"]
+[connection signal="game_selected" from="GameListScene" to="." method="_on_game_list_scene_game_selected"]
 [connection signal="return_mm" from="pause_container" to="." method="_on_pause_container_return_mm"]
 [connection signal="endpoint_response" from="SessionHandler" to="." method="_on_session_handler_endpoint_response"]

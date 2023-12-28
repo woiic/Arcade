@@ -1,9 +1,9 @@
 extends CanvasLayer
 
 enum State {
-Start = 0,
+Idle = 0,
 ChossingGame,
-AwatingCard,
+WaitingSession,
 InGame,
 }
 
@@ -15,6 +15,7 @@ var ActualState;
 @onready var pause_container = $pause_container
 @onready var game_overlay = $GameOverlay
 @onready var session_handler = $SessionHandler
+@onready var debug = $Debug
 
 var bon_pause = false
 var this_game_score : float = 0
@@ -27,7 +28,7 @@ var test_playerdata
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ActualState = State.Start
+	ActualState = State.Idle
 	game_list_scene.hide()
 	pause_container.hide()
 	game_overlay.hide()
@@ -41,24 +42,27 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	match ActualState:
-		State.Start:
-			
-			#print(tst)
+		State.Idle:
+			debug.text = "Starting State"
 			return
-		#State.ChossingGame:
+		State.ChossingGame:
+			debug.text = "Chossing game State"
+			return
 		#State.AwatingCard:
 		State.InGame:
+			debug.text = "In game State"
 			if Input.is_action_just_pressed("escape"):
 				var main_game = $Main
 				if main_game:
 					main_game.queue_free()
 					game_list_scene.show()
-					ActualState = State.Start
-					hideScore()
+					ActualState = State.ChossingGame
+					#hideScore()
 	return
 
 
 func _on_button_pressed():
+	ActualState = State.ChossingGame
 	game_list_scene.show()
 	title.hide()
 	# Getting top score
@@ -104,15 +108,15 @@ func give_PlayerData():
 # TODO: cambiar nombre a algo que tenga que ver con el paso de datos desde juego a arcade y que con
 #		argumentos extra se hagan distintas acciones
 
-func showScore(in_points: float, in_delay: float=0):
-	saveScore(in_points)
-	game_overlay.showScore(in_points, max_game_score, in_delay)
-	game_overlay.show()
-	return
+#func showScore(in_points: float, in_delay: float=0):
+#	saveScore(in_points)
+#	game_overlay.showScore(in_points, max_game_score, in_delay)
+#	game_overlay.show()
+#	return
 
-func hideScore():
-	game_overlay.hideScore()
-	return
+#func hideScore():
+#	game_overlay.hideScore()
+#	return
 
 func gameOver(in_points: float):
 	print(in_points)
